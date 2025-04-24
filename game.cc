@@ -1,4 +1,5 @@
 #include "game.hh"
+#include "utils.hh"
 using namespace pro2;
 
 Game::Game(int width, int height)
@@ -59,4 +60,14 @@ void Game::paint(pro2::Window& window) {
     }
     mario_.paint(window);
     mario2_.paint(window);
+    
+    const Pt cam = window.camera_center();
+    const int left = cam.x - window.width()/2;
+    const int right = cam.x + window.width()/2;
+    const int top = cam.y - window.height()/2;
+    const int bottom = cam.y + window.height()/2;
+    paint_hline(window, left, right-1, top);
+    paint_hline(window, left, right-1, bottom-1);
+    paint_vline(window, left, top, bottom-1);
+    paint_vline(window, right-1, top, bottom-1);
 }
