@@ -3,6 +3,7 @@ using namespace pro2;
 
 Game::Game(int width, int height)
     : mario_({width / 2, 150}),
+        mario2_({(width / 2)+30, 150}),
       platforms_{
           Platform(100, 300, 200, 211),
           Platform(0, 200, 250, 261),
@@ -29,10 +30,12 @@ void Game::process_keys(pro2::Window& window) {
 
 void Game::update_objects(pro2::Window& window) {
     mario_.update(window, platforms_);
+    mario2_.update(window, platforms_);
 }
 
 void Game::update_camera(pro2::Window& window) {
     const Pt pos = mario_.pos();
+    const Pt pos2 = mario2_.pos();
     const Pt cam = window.camera_center();
 
     const int left = cam.x - window.width() / 4;
@@ -52,6 +55,17 @@ void Game::update_camera(pro2::Window& window) {
         dy = pos.y - bottom;
     }
 
+    // if (pos.x > right) {
+    //     dx = pos.x - right;
+    // } else if (pos.x < left) {
+    //     dx = pos.x - left;
+    // }
+    // if (pos.y < top) {
+    //     dy = pos.y - top;
+    // } else if (pos.y > bottom) {
+    //     dy = pos.y - bottom;
+    // }
+
     window.move_camera({dx, dy});
 }
 
@@ -69,4 +83,5 @@ void Game::paint(pro2::Window& window) {
         p.paint(window);
     }
     mario_.paint(window);
+    mario2_.paint(window);
 }
