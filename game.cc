@@ -36,13 +36,26 @@ void Game::update_objects(pro2::Window& window) {
 
 void Game::update_camera(pro2::Window& window) {
     const Pt pos = mario_.pos();
+    const Pt cam = window.camera_center();
+ 
+    const int left = cam.x - window.width() / 4;
+    const int right = cam.x + window.width() / 4;
+    const int top = cam.y - window.height() / 4;
+    const int bottom = cam.y + window.height() / 4;
+ 
+    int dx = 0, dy = 0;
+    if (pos.x > right) {
+        dx = pos.x - right;
+    } else if (pos.x < left) {
+        dx = pos.x - left;
+    }
+    if (pos.y < top) {
+        dy = pos.y - top;
+    } else if (pos.y > bottom) {
+        dy = pos.y - bottom;
+    }
 
-    Pt topleft = {
-        pos.x - window.width() / 2,
-        pos.y - window.height() / 2
-    };
-
-    window.set_camera_topleft(topleft);
+    window.move_camera({dx, dy});
 }
 
 void Game::update(pro2::Window& window) {
@@ -55,12 +68,14 @@ void Game::update(pro2::Window& window) {
 
 void Game::paint(pro2::Window& window) {
     window.clear(sky_blue);
+    Rect test = {240, 50, 270, 300};
+    paint_rect(window, test, 0x00ffff00);
     for (const Platform& p : platforms_) {
         p.paint(window);
     }
     mario_.paint(window);
     mario2_.paint(window);
-    
+
     const Pt cam = window.camera_center();
     const int left = cam.x - window.width()/2;
     const int right = cam.x + window.width()/2;
