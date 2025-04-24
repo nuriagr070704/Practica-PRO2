@@ -30,4 +30,10 @@ void paint_sprite(pro2::Window&              window,
     }
 }
 
+void paint_rect(pro2::Window& window, Rect rect, Color color) {
+    for (int y = rect.top; y <= rect.bottom; ++y) {
+        paint_hline(window, rect.left, rect.right, y, color);
+    }
+}
+
 }  // namespace pro2

@@ -42,6 +42,15 @@ void paint_sprite(pro2::Window&                        window,
                   const std::vector<std::vector<int>>& sprite,
                   bool                                 mirror);
 
+/**
+ * @brief Dibuixa un rectangle a partir de un objecte Rect
+ * 
+ * @param window Finestra a la que pintar
+ * @param rect Coordenades del rectangle a pintar
+ * @param color Color del rectangle a pintar (si no es pose s'asumeix `white`)
+*/
+void paint_rect(pro2::Window& window, Rect rect, pro2::Color color = pro2::white);
+
 }  // namespace pro2
 
 #endif
