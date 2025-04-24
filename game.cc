@@ -2,8 +2,8 @@
 using namespace pro2;
 
 Game::Game(int width, int height)
-    : mario_({width / 2, 150}),
-        mario2_({(width / 2)+30, 150}),
+    : mario_({width / 2, 150}, Keys::Left, Keys::Right, Keys::Up),
+        mario2_({(width / 2)+30, 150}, Keys::A, Keys::D, Keys::W),
       platforms_{
           Platform(100, 300, 200, 211),
           Platform(0, 200, 250, 261),
@@ -17,18 +17,18 @@ Game::Game(int width, int height)
 }
 
 void Game::process_keys(pro2::Window& window) {
-    if (window.is_key_down(Keys::Escape)) {
+    if (window.is_key_down(Keys::Escape)) { //si se ha pulsado alguna vez
         finished_ = true;
         return;
     }
-    //EXCERCICI 0.1
-    if (window.was_key_pressed(Keys::P)) {
+    if (window.was_key_pressed(Keys::P)) { //si es el que se ha pulsado
         pause_ = !pause_;
         return;
     }
 }
 
 void Game::update_objects(pro2::Window& window) {
+    //poner aqui las teclas de los personajes
     mario_.update(window, platforms_);
     mario2_.update(window, platforms_);
 }
@@ -54,17 +54,6 @@ void Game::update_camera(pro2::Window& window) {
     } else if (pos.y > bottom) {
         dy = pos.y - bottom;
     }
-
-    // if (pos.x > right) {
-    //     dx = pos.x - right;
-    // } else if (pos.x < left) {
-    //     dx = pos.x - left;
-    // }
-    // if (pos.y < top) {
-    //     dy = pos.y - top;
-    // } else if (pos.y > bottom) {
-    //     dy = pos.y - bottom;
-    // }
 
     window.move_camera({dx, dy});
 }

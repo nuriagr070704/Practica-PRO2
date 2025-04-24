@@ -69,15 +69,15 @@ void Mario::jump() {
 
 void Mario::update(pro2::Window& window, const vector<Platform>& platforms) {
     last_pos_ = pos_;
-    if (window.is_key_down(Keys::Space)) {
+    if (window.is_key_down(up_)) {
         jump();
     }
 
     // Velocitat horitzontal
     speed_.x = 0; 
-    if (window.is_key_down(Keys::Left)) {
+    if (window.is_key_down(left_)) {
         speed_.x = -4;
-    } else if (window.is_key_down(Keys::Right)) {
+    } else if (window.is_key_down(right_)) {
         speed_.x = 4;
     }
     if (speed_.x != 0) {

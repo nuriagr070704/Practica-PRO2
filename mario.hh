@@ -13,13 +13,18 @@ class Mario {
     pro2::Pt accel_ = {0, 0};
     int      accel_time_ = 0;
 
+    int left_;
+    int right_;
+    int up_;
+
     bool grounded_ = false;
 	bool looking_left_ = false;
 
 	void apply_physics_();
 	
  public:
-    Mario(pro2::Pt pos) : pos_(pos), last_pos_(pos) {}
+    Mario(pro2::Pt pos, int left, int right, int up)
+    : pos_(pos), last_pos_(pos), left_(left), right_(right), up_(up) {}
 
     void paint(pro2::Window& window) const;
 
