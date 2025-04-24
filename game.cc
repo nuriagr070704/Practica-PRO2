@@ -69,7 +69,9 @@ void Game::update(pro2::Window& window) {
 void Game::paint(pro2::Window& window) {
     window.clear(sky_blue);
     Rect test = {240, 50, 270, 300};
-    paint_rect(window, test, 0x00ffff00);
+    if (window.frame_count() % 20 < 10) {
+        paint_rect(window, test, 0x00ffff00);
+    }
     for (const Platform& p : platforms_) {
         p.paint(window);
     }
