@@ -3,16 +3,21 @@
 
 #include <vector>
 #include "mario.hh"
+#include "life.hh"
 #include "platform.hh"
 #include "window.hh"
 
 class Game {
     Mario                 mario_;
-    Mario                 mario2_;
+    // Mario                 mario2_;
+    std::vector<Life> lifes_;
     std::vector<Platform> platforms_;
 
     bool finished_;
     bool pause_;
+    float float_value = 2.0f;
+    float float_max_min = 2.0f;
+    float float_interval = 0.5f;
 
     void process_keys(pro2::Window& window);
     void update_objects(pro2::Window& window);

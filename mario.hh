@@ -20,6 +20,8 @@ class Mario {
     bool grounded_ = false;
 	bool looking_left_ = false;
 
+    int lifes_ = 0;
+
 	void apply_physics_();
 	
  public:
@@ -52,6 +54,11 @@ class Mario {
     }
 
     void jump();
+
+    void add_life() {
+        ++lifes_;
+        std::cout << "vidas: " << lifes_ << std::endl;
+    }
 
     void update(pro2::Window& window, const std::vector<Platform>& platforms);
 
