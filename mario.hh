@@ -57,7 +57,6 @@ class Mario {
 
     void add_life() {
         ++lifes_;
-        std::cout << "vidas: " << lifes_ << std::endl;
     }
 
     void update(pro2::Window& window, const std::vector<Platform>& platforms);
