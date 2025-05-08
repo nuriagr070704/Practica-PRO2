@@ -28,7 +28,7 @@ class Life {
         taken_ = true;
     }
 
-    bool is_taken() {
+    bool is_taken() const {
         return taken_;
     }
 

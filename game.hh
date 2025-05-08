@@ -9,8 +9,7 @@
 
 class Game {
     Mario                 mario_;
-    // Mario                 mario2_;
-    std::vector<Life> lifes_;
+    std::vector<Life> lifes_; //hacer lista para eliminar las vidas al cojerlas
     std::vector<Platform> platforms_;
 
     bool finished_;
