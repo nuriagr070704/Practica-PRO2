@@ -95,6 +95,9 @@ void Game::paint(pro2::Window& window) {
 
   mario_.paint(window);
 
+  // Rect test = lifes_[0].get_rect();
+  // paint_rect(window, test, 0x00ffff00);
+
   const Pt cam = window.camera_center();
   const int left = cam.x - window.width()/2;
   const int right = cam.x + window.width()/2;
