@@ -2,15 +2,22 @@
 #define GAME_HH
 
 #include <vector>
+#include <set>
 #include "mario.hh"
 #include "life.hh"
 #include "platform.hh"
 #include "window.hh"
+#include "finder.hh"
 
 class Game {
     Mario                 mario_;
     std::vector<Life> lifes_; //hacer lista para eliminar las vidas al cojerlas
     std::vector<Platform> platforms_;
+    
+    Finder<Platform> finder_platform_;
+    Finder<Life> finder_life_;
+    std::set<const Platform*> printed_platforms_;
+    std::set<const Life*> printed_lifes_;
 
     bool finished_;
     bool pause_;

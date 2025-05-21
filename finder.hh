@@ -44,8 +44,8 @@ public:
      *          rectangle parcial o totalment dins de `rect`
      */
     std::set<const T *> query(pro2::Rect rect) const {
-        set<const T*> objects;
-        typename set<const T*>::const_iterator it;
+        std::set<const T*> objects;
+        typename std::set<const T*>::const_iterator it;
         for (it = elements.begin(); it != elements.end(); ++it) {
             if (rects_intersect(rect, (*it)->get_rect())) {
                 objects.insert(*it);

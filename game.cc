@@ -16,9 +16,13 @@ Game::Game(int width, int height)
       },
       pause_(false),
       finished_(false) {
-    for (int i = 1; i < 20; i++) {
+    for (int i = 1; i < 200000; i++) {
       platforms_.push_back(Platform(250 + i * 200, 400 + i * 200, 150, 161));
     }
+
+    for (const Platform& plat : platforms_) finder_platform_.add(&plat);
+
+    for (const Life& life : lifes_) finder_life_.add(&life);
 }
 
 void Game::process_keys(pro2::Window& window) {
@@ -74,6 +78,17 @@ void Game::update_camera(pro2::Window& window) {
 }
 
 void Game::update(pro2::Window& window) {
+  Pt center = window.camera_center();
+  Rect visible_window = {
+    center.x - window.width() /2,
+    center.y - window.height() /2,
+    center.x + window.width() /2,
+    center.y + window.height() /2
+  };
+  
+  printed_platforms_ = finder_platform_.query(visible_window);
+  printed_lifes_ = finder_life_.query(visible_window);
+  
   process_keys(window);
   if (!pause_) {
     update_objects(window);
@@ -84,13 +99,13 @@ void Game::update(pro2::Window& window) {
 void Game::paint(pro2::Window& window) {
   window.clear(sky_blue);
 
-  for (const Platform& p : platforms_) {
-    p.paint(window);
+  for (const Platform* p : printed_platforms_) {
+    p->paint(window);
   }
 
-  for (Life& l : lifes_) {
-    if (!l.is_taken())
-      l.paint(window);
+  for (const Life* l : printed_lifes_) {
+    if (!l->is_taken())
+      l->paint(window);
   }
 
   mario_.paint(window);
