@@ -9,6 +9,8 @@ template <typename T>
 class Finder {
 private:
     std::set<const T*> elements;
+    //map de T* a un set de Pt
+    //otro map de Pt a set de punteros
 
     static bool rects_intersect(pro2::Rect rect, pro2::Rect object) { //static porque no depende del estado interno del objeto
         if (rect.left > object.right || rect.right < object.left || rect.top > object.bottom || rect.bottom < object.top) return false;
