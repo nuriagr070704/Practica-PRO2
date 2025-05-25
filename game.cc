@@ -16,21 +16,21 @@ Game::Game(int width, int height)
       },
       pause_(false),
       finished_(false) {
-    for (int i = 1; i < 200000; i++) {
+    for (int i = 1; i < 2000000; i++) {
       platforms_.push_back(Platform(250 + i * 200, 400 + i * 200, 150, 161));
     }
 
-    for (const Platform& plat : platforms_) finder_platform_.add(&plat);
+    for (const Platform& plat : platforms_) finder_platform_.add(&plat); // añadir la referencia de todas las plataformas a su respectivo finder
 
-    for (const Life& life : lifes_) finder_life_.add(&life);
+    for (const Life& life : lifes_) finder_life_.add(&life); // añadir la referncia de todas las vidas a su respectivo finder
 }
 
 void Game::process_keys(pro2::Window& window) {
-    if (window.is_key_down(Keys::Escape)) { //si se ha pulsado alguna vez
+    if (window.is_key_down(Keys::Escape)) {
       finished_ = true;
       return;
     }
-    if (window.was_key_pressed(Keys::P)) { //si es el que se ha pulsado
+    if (window.was_key_pressed(Keys::P)) {
       pause_ = !pause_;
       return;
     }
@@ -84,10 +84,10 @@ void Game::update(pro2::Window& window) {
     center.y - window.height() /2,
     center.x + window.width() /2,
     center.y + window.height() /2
-  };
+  }; // objeto Rect con las dimensiones de la pantalla visible
   
-  printed_platforms_ = finder_platform_.query(visible_window);
-  printed_lifes_ = finder_life_.query(visible_window);
+  printed_platforms_ = finder_platform_.query(visible_window); // guardamos las plataformas que actualmente se ven por pantalla
+  printed_lifes_ = finder_life_.query(visible_window); // guardamos las vidas que actualmente se ven por pantalla
   
   process_keys(window);
   if (!pause_) {
@@ -99,19 +99,16 @@ void Game::update(pro2::Window& window) {
 void Game::paint(pro2::Window& window) {
   window.clear(sky_blue);
 
-  for (const Platform* p : printed_platforms_) {
+  for (const Platform* p : printed_platforms_) { // imprimimos por pantalla solo las plataformas que se ven
     p->paint(window);
   }
 
-  for (const Life* l : printed_lifes_) {
+  for (const Life* l : printed_lifes_) { // imprimimos por pantalla solo las vidas que se ven
     if (!l->is_taken())
       l->paint(window);
   }
 
   mario_.paint(window);
-
-  // Rect test = lifes_[0].get_rect();
-  // paint_rect(window, test, 0x00ffff00);
 
   const Pt cam = window.camera_center();
   const int left = cam.x - window.width()/2;

@@ -8,11 +8,17 @@
 template <typename T>
 class Finder {
 private:
-    std::set<const T*> elements;
-    //map de T* a un set de Pt
-    //otro map de Pt a set de punteros
+    std::set<const T*> elements; // uso un set para guardar las referencias a los objetos
 
-    static bool rects_intersect(pro2::Rect rect, pro2::Rect object) { //static porque no depende del estado interno del objeto
+    /**
+     * @brief Inspecciona dos rectangles per veure si s'intersecten o no
+     * 
+     * @param rect Objecte tipus `Rect` finestra
+     * @param object Objecte tipus `Rect` que volem saber si és dins de l'altre
+     * 
+     * @returns Retorna `true` si l'objecte esta dins la finestra i `false` en cas contrari
+     */
+    static bool rects_intersect(pro2::Rect rect, pro2::Rect object) {
         if (rect.left > object.right || rect.right < object.left || rect.top > object.bottom || rect.bottom < object.top) return false;
         return true;
     }

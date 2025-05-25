@@ -14,10 +14,10 @@ class Game {
     std::vector<Life> lifes_; //hacer lista para eliminar las vidas al cojerlas
     std::vector<Platform> platforms_;
     
-    Finder<Platform> finder_platform_;
-    Finder<Life> finder_life_;
-    std::set<const Platform*> printed_platforms_;
-    std::set<const Life*> printed_lifes_;
+    Finder<Platform> finder_platform_; //objeto finder para las plataformas
+    Finder<Life> finder_life_; //objeto finder para las vidas
+    std::set<const Platform*> printed_platforms_; //set que guarda la referencia a las plataformas que se van a imprimir
+    std::set<const Life*> printed_lifes_; //set que guarda la referencia a las vidas que se van a imprimir
 
     bool finished_;
     bool pause_;
