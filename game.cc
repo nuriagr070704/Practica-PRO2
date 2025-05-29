@@ -2,6 +2,7 @@
 #include "utils.hh"
 using namespace pro2;
 
+//preguntar cuantas vidas, plataformas, enemigos quiere
 Game::Game(int width, int height)
     : mario_({width / 2, 150}, Keys::Left, Keys::Right, Keys::Up),
       lifes_{
@@ -16,6 +17,8 @@ Game::Game(int width, int height)
       },
       pause_(false),
       finished_(false) {
+    //hacer que las plataforas se generen automaticamente
+    //ver si estan cogidas con una matriz o con un map donde la clave sea el pri
     for (int i = 1; i < 2000000; i++) {
       platforms_.push_back(Platform(250 + i * 200, 400 + i * 200, 150, 161));
     }

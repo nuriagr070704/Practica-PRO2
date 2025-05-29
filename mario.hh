@@ -20,7 +20,7 @@ class Mario {
     bool grounded_ = false;
 	bool looking_left_ = false;
 
-    int lifes_ = 0;
+    int lifes_ = 0;//imprimir vidas al acabar el juego
 
 	void apply_physics_();
 	
