@@ -3,7 +3,7 @@
 using namespace pro2;
 
 //preguntar cuantas vidas, plataformas, enemigos quiere
-Game::Game(int width, int height)
+Game::Game(int width, int height, int platforms_num, int lifes_num, int goombas_num)
     : mario_({width / 2, 150}, Keys::Left, Keys::Right, Keys::Up),
       lifes_{
         Life({375, 100}, false),
@@ -17,6 +17,14 @@ Game::Game(int width, int height)
       },
       pause_(false),
       finished_(false) {
+
+    for (int i = 0; i < lifes_num; ++i) {
+      //horizontalmente entre 0(left) y el infimito supongo(right)
+      //verticalmente entre 150(top) y 261(bottom)
+      //hacer random
+      lifes_.push_back(Life({0,0}, false));
+    }//hacer lo mismo para las plataformas
+    //y a ver como me las apaño para hacerlo con los goombas porque van ligados a las plataformas
     //hacer que las plataforas se generen automaticamente
     //ver si estan cogidas con una matriz o con un map donde la clave sea el pri
     for (int i = 1; i < 2000000; i++) {
@@ -43,10 +51,9 @@ void Game::update_objects(pro2::Window& window) {
   //poner aqui las teclas de los personajes
   mario_.update(window, platforms_);
 
-  for (Life& l : lifes_) {
-    if (!l.is_taken()) {
-      l.update(window, mario_, float_value);
-    }
+  for (auto it = lifes_.begin(); it != lifes_.end(); ++it) {
+    it->update(window, mario_, float_value);
+    if (it->is_taken()) lifes_.erase(it);
   }
   if (float_value == float_max_min || float_value == -float_max_min) {
     float_interval = -(float_interval);

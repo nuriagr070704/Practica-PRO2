@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <set>
+#include <list>
 #include "mario.hh"
 #include "life.hh"
 #include "platform.hh"
@@ -11,7 +12,8 @@
 
 class Game {
     Mario                 mario_;
-    std::vector<Life> lifes_; //hacer lista para eliminar las vidas al cojerlas
+    std::list<Life> lifes_;
+    // std::vector<Life> lifes_; //hacer lista para eliminar las vidas al cojerlas
     std::vector<Platform> platforms_;
     
     Finder<Platform> finder_platform_; //objeto finder para las plataformas
@@ -30,7 +32,7 @@ class Game {
     void update_camera(pro2::Window& window);
 
  public:
-    Game(int width, int height);
+    Game(int width, int height, int platforms_num, int lifes_num, int goombas_num);
 
     void update(pro2::Window& window);
     void paint(pro2::Window& window);
