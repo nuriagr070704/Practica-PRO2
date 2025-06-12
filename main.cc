@@ -26,4 +26,12 @@ int main() {
         game.update(window);
         game.paint(window);
     }
+
+    if (game.is_finished()) {
+        if (game.has_won()) {//print win screen
+            cout << "has ganado" << endl;
+        } else {//print lose screen
+            cout << "has perdido" << endl;
+        }
+    }
 }
