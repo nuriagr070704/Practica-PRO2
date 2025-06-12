@@ -28,7 +28,7 @@ Game::Game(int width, int height, int platforms_num, int lifes_num, int goombas_
     //y a ver como me las apaño para hacerlo con los goombas porque van ligados a las plataformas
     //hacer que las plataforas se generen automaticamente
     //ver si estan cogidas con una matriz o con un map donde la clave sea el pri
-    for (int i = 1; i < 2000000; i++) {
+    for (int i = 1; i < 200000; i++) {
       platforms_.push_back(Platform(250 + i * 200, 400 + i * 200, 150, 161));
     }
 
