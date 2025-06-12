@@ -67,7 +67,7 @@ void Mario::jump() {
     }
 }
 
-void Mario::update(pro2::Window& window, const vector<Platform>& platforms) {
+void Mario::update(pro2::Window& window, list<Platform>& platforms) {
     last_pos_ = pos_;
     if (window.is_key_down(up_)) {
         jump();
@@ -90,10 +90,24 @@ void Mario::update(pro2::Window& window, const vector<Platform>& platforms) {
     // Check position
     set_grounded(false);
 
-    for (const Platform& platform : platforms) {
+    for (Platform& platform : platforms) {
         if (platform.has_crossed_floor_downwards(last_pos_, pos_)) {
             set_grounded(true);
             set_y(platform.top());
         }
+
+        //if (viene mario por arriba)
+        if (platform.is_goomba_alive() && pos_.y >= platform.get_goomba_pos().y - 7 && pos_.y <=  platform.get_goomba_pos().y + 7) {
+            if (pos_.x >= platform.get_goomba_pos().x - 7 && pos_.x <= platform.get_goomba_pos().x + 7) {
+                //platform.kill_goomba();
+                lifes_--;
+            }
+        }
+        //else (viene el mario por otro lado)
+        // else if (platform.is_goomba_alive() && pos_.x >= platform.get_goomba_pos().x - 7 && pos_.x <= platform.get_goomba_pos().x + 7) {
+        //     if (pos_.y >= platform.get_goomba_pos().y - 7 && pos_.y <=  platform.get_goomba_pos().y + 7) {
+        //         lifes_--;
+        //     }
+        // }
     }
 }

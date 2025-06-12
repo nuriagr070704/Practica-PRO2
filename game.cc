@@ -16,7 +16,8 @@ Game::Game(int width, int height, int platforms_num, int lifes_num, int goombas_
           Platform(250, 400, 150, 161),
       },
       pause_(false),
-      finished_(false) {
+      finished_(false),
+      is_winning_(true) {
 
     for (int i = 0; i < lifes_num; ++i) {
       //horizontalmente entre 0(left) y el infimito supongo(right)
@@ -31,9 +32,9 @@ Game::Game(int width, int height, int platforms_num, int lifes_num, int goombas_
       platforms_.push_back(Platform(250 + i * 200, 400 + i * 200, 150, 161));
     }
 
-    for (const Platform& plat : platforms_) finder_platform_.add(&plat); // añadir la referencia de todas las plataformas a su respectivo finder
+    for (Platform& plat : platforms_) finder_platform_.add(&plat); // añadir la referencia de todas las plataformas a su respectivo finder
 
-    for (const Life& life : lifes_) finder_life_.add(&life); // añadir la referncia de todas las vidas a su respectivo finder
+    for (Life& life : lifes_) finder_life_.add(&life); // añadir la referncia de todas las vidas a su respectivo finder
 }
 
 void Game::process_keys(pro2::Window& window) {
@@ -47,9 +48,20 @@ void Game::process_keys(pro2::Window& window) {
     }
 }
 
-void Game::update_objects(pro2::Window& window) {
+void Game::update_objects(pro2::Window& window, Rect visible_window) {
   //poner aqui las teclas de los personajes
   mario_.update(window, platforms_);
+  if (mario_.get_lifes() == 0) {
+    is_winning_ = false;
+    finished_ = true;
+  }
+
+  printed_platforms_ = finder_platform_.query(visible_window); // guardamos las plataformas que actualmente se ven por pantalla
+  printed_lifes_ = finder_life_.query(visible_window); // guardamos las vidas que actualmente se ven por pantalla
+
+  for (Platform* plat : printed_platforms_) {
+    plat->update(window);
+  }
 
   for (auto it = lifes_.begin(); it != lifes_.end(); ++it) {
     it->update(window, mario_, float_value);
@@ -96,13 +108,11 @@ void Game::update(pro2::Window& window) {
     center.y + window.height() /2
   }; // objeto Rect con las dimensiones de la pantalla visible
   
-  printed_platforms_ = finder_platform_.query(visible_window); // guardamos las plataformas que actualmente se ven por pantalla
-  printed_lifes_ = finder_life_.query(visible_window); // guardamos las vidas que actualmente se ven por pantalla
-  
   process_keys(window);
   if (!pause_) {
-    update_objects(window);
+    update_objects(window, visible_window);
     update_camera(window);
+    
   }
 }
 

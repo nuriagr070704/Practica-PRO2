@@ -19,6 +19,10 @@ const vector<vector<int>> Platform::platform_texture_ = {
 };
 // clang-format on
 
+void Platform::update(pro2::Window& window) {
+    goomba_.update(window, left_, right_);
+}
+
 void Platform::paint(pro2::Window& window) const {
     const int xsz = platform_texture_.size();
     const int ysz = platform_texture_[0].size();
@@ -27,6 +31,7 @@ void Platform::paint(pro2::Window& window) const {
             window.set_pixel({j, i}, platform_texture_[(i - top_ - 1) % xsz][(j - left_) % ysz]);
         }
     }
+    if (goomba_.is_alive()) goomba_.paint(window);
 }
 
 bool Platform::has_crossed_floor_downwards(pro2::Pt plast, pro2::Pt pcurr) const {

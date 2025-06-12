@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 #include "platform.hh"
 #include "window.hh"
 
@@ -20,7 +21,7 @@ class Mario {
     bool grounded_ = false;
 	bool looking_left_ = false;
 
-    int lifes_ = 0;//imprimir vidas al acabar el juego
+    int lifes_ = 1;//imprimir vidas al acabar el juego
 
 	void apply_physics_();
 	
@@ -59,7 +60,11 @@ class Mario {
         ++lifes_;
     }
 
-    void update(pro2::Window& window, const std::vector<Platform>& platforms);
+    int get_lifes() {
+        return lifes_;
+    }
+
+    void update(pro2::Window& window, std::list<Platform>& platforms);
 
  private:
     static const std::vector<std::vector<int>> mario_sprite_normal_;

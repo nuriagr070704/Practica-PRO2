@@ -28,3 +28,22 @@ const vector<vector<int>> Goomba::goomba_sprite_normal_ = {
     {_, b, b, b, b, b, m, m, m, m, b, b, b, b, b, _},
     {_, _, b, b, b, b, b, _, _, b, b, b, b, b, _, _},
 };
+
+void Goomba::update(pro2::Window& window, int start, int end) {
+    pro2::Pt aux_pos = pos_;
+    if(pos_.x == start) { //ir hacia la derecha
+        pos_.x += 1;
+    } else if (pos_.x == end) { //ir hacia la izquierda
+        pos_.x -= 1;
+    } else if (pos_.x > prepos_.x) { // ir hacia la derecha
+        pos_.x += 1;
+    } else if (pos_.x < prepos_.x) { //ir hacia la izquierda
+        pos_.x -= 1;
+    }
+    prepos_ = aux_pos;
+}
+
+void Goomba::paint(pro2::Window& window) const {
+    const Pt top_left = {pos_.x - 6, pos_.y - 13};
+    paint_sprite(window, top_left, goomba_sprite_normal_, true);
+}
