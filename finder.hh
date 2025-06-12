@@ -8,7 +8,7 @@
 template <typename T>
 class Finder {
 private:
-    std::set<const T*> elements; // uso un set para guardar las referencias a los objetos
+    std::set<T*> elements; // uso un set para guardar las referencias a los objetos
 
     /**
      * @brief Inspecciona dos rectangles per veure si s'intersecten o no
@@ -26,16 +26,16 @@ private:
 public:
     Finder() {}
 
-    void add(const T *t) {
+    void add(T *t) {
         elements.insert(t);
     }
 
-    void update(const T *t) {
+    void update(T *t) {
         elements.erase(t);
         elements.insert(t);
     }
 
-    void remove(const T *t) {
+    void remove(T *t) {
         elements.erase(t);
     }
 
@@ -51,9 +51,9 @@ public:
      * @returns Un conjunt de punters a objectes que tenen un 
      *          rectangle parcial o totalment dins de `rect`
      */
-    std::set<const T *> query(pro2::Rect rect) const {
-        std::set<const T*> objects;
-        typename std::set<const T*>::const_iterator it;
+    std::set<T*> query(pro2::Rect rect) const {
+        std::set<T*> objects;
+        typename std::set<T*>::const_iterator it;
         for (it = elements.begin(); it != elements.end(); ++it) {
             if (rects_intersect(rect, (*it)->get_rect())) {
                 objects.insert(*it);
