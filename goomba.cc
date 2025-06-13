@@ -41,6 +41,7 @@ void Goomba::update(pro2::Window& window, int start, int end) {
         pos_.x -= 1;
     }
     prepos_ = aux_pos;
+    if (fbk_ > 0) add_fbk(-1);
 }
 
 void Goomba::paint(pro2::Window& window) const {

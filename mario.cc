@@ -96,18 +96,14 @@ void Mario::update(pro2::Window& window, list<Platform>& platforms) {
             set_y(platform.top());
         }
 
-        //if (viene mario por arriba)
-        if (platform.is_goomba_alive() && pos_.y >= platform.get_goomba_pos().y - 7 && pos_.y <=  platform.get_goomba_pos().y + 7) {
+        if (pos_.y >= platform.get_goomba_pos().y - 7 && pos_.y <=  platform.get_goomba_pos().y + 7) {
             if (pos_.x >= platform.get_goomba_pos().x - 7 && pos_.x <= platform.get_goomba_pos().x + 7) {
-                //platform.kill_goomba();
-                lifes_--;
+                if (platform.can_goomba_kill()) {
+                    lifes_--;
+                    platform.goomba_kills();
+                    std::cout << "vidas al quitar: " << lifes_ << std::endl;
+                }
             }
         }
-        //else (viene el mario por otro lado)
-        // else if (platform.is_goomba_alive() && pos_.x >= platform.get_goomba_pos().x - 7 && pos_.x <= platform.get_goomba_pos().x + 7) {
-        //     if (pos_.y >= platform.get_goomba_pos().y - 7 && pos_.y <=  platform.get_goomba_pos().y + 7) {
-        //         lifes_--;
-        //     }
-        // }
     }
 }

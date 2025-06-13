@@ -57,7 +57,8 @@ class Mario {
     void jump();
 
     void add_life() {
-        ++lifes_;
+        lifes_++;
+        std::cout << "vidas al sumar: " << lifes_ << std::endl;
     }
 
     int get_lifes() {

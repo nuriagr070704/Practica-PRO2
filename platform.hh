@@ -35,12 +35,12 @@ class Platform {
         return goomba_.pos();
     }
 
-    void kill_goomba() {
-        goomba_.kill();
+    void goomba_kills() {
+        goomba_.add_fbk(20);
     }
 
-    bool is_goomba_alive() {
-        return goomba_.is_alive();
+    bool can_goomba_kill() {
+        return goomba_.can_kill();
     }
 
     int top() const {

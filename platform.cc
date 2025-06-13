@@ -31,7 +31,7 @@ void Platform::paint(pro2::Window& window) const {
             window.set_pixel({j, i}, platform_texture_[(i - top_ - 1) % xsz][(j - left_) % ysz]);
         }
     }
-    if (goomba_.is_alive()) goomba_.paint(window);
+    goomba_.paint(window);
 }
 
 bool Platform::has_crossed_floor_downwards(pro2::Pt plast, pro2::Pt pcurr) const {
