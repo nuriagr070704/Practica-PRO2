@@ -7,6 +7,7 @@
 #include "life.hh"
 #include "mario.hh"
 #include "platform.hh"
+#include "flag.hh"
 #include "window.hh"
 #include "finder.hh"
 
@@ -23,6 +24,10 @@ class Game {
      * @brief Lista de plataformas
      */
     std::list<Platform>     platforms_;
+    /**
+     * @brief Objeto de bandera
+     */
+    Flag                    flag_;
     
     /**
      * @brief Objeto finder para las plataformas
@@ -42,9 +47,13 @@ class Game {
     std::set<Life*>         printed_lifes_;
 
     /**
-     * @brief `true` si el juego ha acabado
+     * @brief `true` si se ha presionado Esc
      */
     bool finished_;
+    /**
+     * @brief `true` si se acaba el juego de una manera convencional
+     */
+    bool game_finished_;
     /**
      * @brief `true` si mario sigue con vidas
      */

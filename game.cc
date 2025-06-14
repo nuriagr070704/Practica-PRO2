@@ -15,8 +15,10 @@ Game::Game(int width, int height, int platforms_num, int lifes_num)
           Platform(0, 200, 250, 261),
           Platform(250, 400, 150, 161),
       },
+      flag_({400, 127}, false),
       pause_(false),
       finished_(false),
+      game_finished_(false),
       is_winning_(true) {
 
     for (int i = 0; i < lifes_num; ++i) lifes_.push_back(Life({0,0}, false));
@@ -36,7 +38,7 @@ void Game::process_keys(pro2::Window& window) {
       finished_ = true;
       return;
     }
-    if (window.was_key_pressed(Keys::P)) {
+    if (!game_finished_ && window.was_key_pressed(Keys::P)) {
       pause_ = !pause_;
       return;
     }
@@ -46,15 +48,20 @@ void Game::update_objects(pro2::Window& window, Rect visible_window) {
   mario_.update(window, platforms_);
   if (mario_.get_lifes() == 0) {
     is_winning_ = false;
-    finished_ = true;
+    game_finished_ = true;
+    pause_ = true;
+  }
+
+  flag_.update(window, mario_);
+  if (flag_.is_taken()) {
+    game_finished_ = true;
+    pause_ = true;
   }
 
   printed_platforms_ = finder_platform_.query(visible_window);
   printed_lifes_ = finder_life_.query(visible_window);
 
-  for (Platform* plat : printed_platforms_) {
-    plat->update(window);
-  }
+  for (Platform* plat : printed_platforms_) plat->update(window);
 
   for (auto it = lifes_.begin(); it != lifes_.end(); ++it) {
     it->update(window, mario_, float_value);
@@ -112,14 +119,11 @@ void Game::update(pro2::Window& window) {
 void Game::paint(pro2::Window& window) {
   window.clear(sky_blue);
 
-  for (const Platform* p : printed_platforms_) {
-    p->paint(window);
-  }
+  flag_.paint(window);
 
-  for (const Life* l : printed_lifes_) {
-    if (!l->is_taken())
-      l->paint(window);
-  }
+  for (const Platform* p : printed_platforms_) p->paint(window);
+
+  for (const Life* l : printed_lifes_) if (!l->is_taken()) l->paint(window);
 
   mario_.paint(window);
 
