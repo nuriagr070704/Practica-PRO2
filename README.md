@@ -14,15 +14,16 @@ Aquí podremos mover el personaje con las flechas del teclado. Si pulsamos la fl
 Finalmente, para cerrar el programa se puede hacer pulsando la tecla `ESC` del teclado o la cruz de la pantalla arriba a la derecha.
 
 ## Novedades de la Parte 3
-- Nueva clase Goomba. \\falta completar\\
+- Nueva clase Goomba. Un Goomba es un enemigo que al tocarlo, Mario pierde una vida. Este enemigo se mueve de derecha a izquierda y viceversa, sin salirse de su plataforma con el objetivo de quitarle todas las vidas a Mario.
 - Nueva clase Flag. \\falta completar\\
 - He cambiado el vector de vidas por una lista para poder eliminar las vidas cuando el Mario las coja.
+- He cambiado el vector de plataformas por una lista.
 - He añadido una opción al principio de ejecutar el programa para elejir cuantas plataformas, vidas, enemigos (Goombas) i etc quiere el usuario en el juego, si no se especifica ninguna cantidad se ponen valores por defecto.
+- Estan todas las funciones comentadas con su descripcion correspondiente
 
 TODO:
 comentar cosas nuevas del codigo en el readme
 hacer 4 clases nuevas
-    goomba
     palo con bandera del final del juego
     ...
     ...

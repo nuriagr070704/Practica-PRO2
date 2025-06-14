@@ -101,7 +101,7 @@ void Mario::update(pro2::Window& window, list<Platform>& platforms) {
                 if (platform.can_goomba_kill()) {
                     lifes_--;
                     platform.goomba_kills();
-                    std::cout << "vidas al quitar: " << lifes_ << std::endl;
+                    std::cout << "vidas de mario: " << lifes_ << std::endl;
                 }
             }
         }

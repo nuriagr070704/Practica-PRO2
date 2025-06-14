@@ -14,13 +14,11 @@ int main() {
     cin >> platforms_num;
     cout << "Cuantas vidas quieres en el juego?" << endl;
     cin >> lifes_num;
-    cout << "Cuantos Goombas quieres en el juego" << endl;
-    cin >> goombas_num;
     
     pro2::Window window("Mario Pro 2", WIDTH, HEIGHT, ZOOM);
     window.set_fps(FPS);
 
-    Game game(WIDTH, HEIGHT, platforms_num, lifes_num, goombas_num);
+    Game game(WIDTH, HEIGHT, platforms_num, lifes_num);
 
     while (window.next_frame() && !game.is_finished()) {
         game.update(window);

@@ -8,7 +8,10 @@
 template <typename T>
 class Finder {
 private:
-    std::set<T*> elements; // uso un set para guardar las referencias a los objetos
+    /**
+     * @brief Set que guarda los elementos
+     */
+    std::set<T*> elements;
 
     /**
      * @brief Inspecciona dos rectangles per veure si s'intersecten o no
@@ -24,17 +27,35 @@ private:
     }
 
 public:
+    /**
+     * @brief Contruye un objeto finder
+     */
     Finder() {}
 
+    /**
+     * @brief Añade un objeto al finder
+     * 
+     * @param t Objeto a añadir
+     */
     void add(T *t) {
         elements.insert(t);
     }
 
+    /**
+     * @brief Actualiza el objeto del finder
+     * 
+     * @param t Objeto a actualizar
+     */
     void update(T *t) {
         elements.erase(t);
         elements.insert(t);
     }
 
+    /**
+     * @brief Elimina un objeto del finder
+     * 
+     * @param t Objeto a eliminar
+     */
     void remove(T *t) {
         elements.erase(t);
     }

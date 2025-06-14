@@ -3,7 +3,7 @@
 using namespace pro2;
 
 //preguntar cuantas vidas, plataformas, enemigos quiere
-Game::Game(int width, int height, int platforms_num, int lifes_num, int goombas_num)
+Game::Game(int width, int height, int platforms_num, int lifes_num)
     : mario_({width / 2, 150}, Keys::Left, Keys::Right, Keys::Up),
       lifes_{
         Life({375, 100}, false),
@@ -19,22 +19,16 @@ Game::Game(int width, int height, int platforms_num, int lifes_num, int goombas_
       finished_(false),
       is_winning_(true) {
 
-    for (int i = 0; i < lifes_num; ++i) {
+    for (int i = 0; i < lifes_num; ++i) lifes_.push_back(Life({0,0}, false));
       //horizontalmente entre 0(left) y el infimito supongo(right)
       //verticalmente entre 150(top) y 261(bottom)
       //hacer random
-      lifes_.push_back(Life({0,0}, false));
-    }//hacer lo mismo para las plataformas
-    //y a ver como me las apaño para hacerlo con los goombas porque van ligados a las plataformas
-    //hacer que las plataforas se generen automaticamente
-    //ver si estan cogidas con una matriz o con un map donde la clave sea el pri
-    for (int i = 1; i < 200000; i++) {
-      platforms_.push_back(Platform(250 + i * 200, 400 + i * 200, 150, 161));
-    }
+    
+    for (int i = 1; i < platforms_num; i++) platforms_.push_back(Platform(250 + i * 200, 400 + i * 200, 150, 161));
 
-    for (Platform& plat : platforms_) finder_platform_.add(&plat); // añadir la referencia de todas las plataformas a su respectivo finder
+    for (Platform& plat : platforms_) finder_platform_.add(&plat);
 
-    for (Life& life : lifes_) finder_life_.add(&life); // añadir la referncia de todas las vidas a su respectivo finder
+    for (Life& life : lifes_) finder_life_.add(&life);
 }
 
 void Game::process_keys(pro2::Window& window) {
@@ -49,15 +43,14 @@ void Game::process_keys(pro2::Window& window) {
 }
 
 void Game::update_objects(pro2::Window& window, Rect visible_window) {
-  //poner aqui las teclas de los personajes
   mario_.update(window, platforms_);
   if (mario_.get_lifes() == 0) {
     is_winning_ = false;
     finished_ = true;
   }
 
-  printed_platforms_ = finder_platform_.query(visible_window); // guardamos las plataformas que actualmente se ven por pantalla
-  printed_lifes_ = finder_life_.query(visible_window); // guardamos las vidas que actualmente se ven por pantalla
+  printed_platforms_ = finder_platform_.query(visible_window);
+  printed_lifes_ = finder_life_.query(visible_window);
 
   for (Platform* plat : printed_platforms_) {
     plat->update(window);
@@ -106,7 +99,7 @@ void Game::update(pro2::Window& window) {
     center.y - window.height() /2,
     center.x + window.width() /2,
     center.y + window.height() /2
-  }; // objeto Rect con las dimensiones de la pantalla visible
+  };
   
   process_keys(window);
   if (!pause_) {
@@ -119,11 +112,11 @@ void Game::update(pro2::Window& window) {
 void Game::paint(pro2::Window& window) {
   window.clear(sky_blue);
 
-  for (const Platform* p : printed_platforms_) { // imprimimos por pantalla solo las plataformas que se ven
+  for (const Platform* p : printed_platforms_) {
     p->paint(window);
   }
 
-  for (const Life* l : printed_lifes_) { // imprimimos por pantalla solo las vidas que se ven
+  for (const Life* l : printed_lifes_) {
     if (!l->is_taken())
       l->paint(window);
   }

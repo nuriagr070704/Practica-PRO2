@@ -37,6 +37,7 @@ void Life::update(pro2::Window& window, Mario& mario, int float_value) {
         if (pos_mario.y >= pos_.y - 7 && pos_mario.y <=  pos_.y + 7) {
             taken_ = true;
             mario.add_life();
+            std::cout << "vidas de mario: " << mario.get_lifes() << std::endl;
         }
     }
     pos_.y += float_value;

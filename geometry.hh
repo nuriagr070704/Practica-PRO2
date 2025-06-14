@@ -3,6 +3,9 @@
 
 namespace pro2 {
 
+/**
+ * @brief Objeto que define un punto
+ */
 struct Pt {
     int x = 0, y = 0;
 };
@@ -18,6 +21,9 @@ inline bool operator<(const Pt& a, const Pt& b) {
     return a.x != b.x ? a.x < b.x : a.y < b.y;
 }
 
+/**
+ * @brief Objeto que define un rectangulo
+ */
 struct Rect {
     int left, top, right, bottom;
 };

@@ -38,7 +38,3 @@ bool Platform::has_crossed_floor_downwards(pro2::Pt plast, pro2::Pt pcurr) const
     return (left_ <= plast.x && plast.x <= right_) && (left_ <= pcurr.x && pcurr.x <= right_) &&
            (plast.y <= top_ && pcurr.y >= top_);
 }
-
-bool Platform::is_pt_inside(pro2::Pt pt) const {
-	return left_ <= pt.x && pt.x <= right_ && top_ <= pt.y && pt.y <= bottom_;
-}
