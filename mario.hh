@@ -7,6 +7,9 @@
 #include "platform.hh"
 #include "window.hh"
 
+/**
+ * @brief Esta classe define todo el objeto del personaje de Mario
+ */
 class Mario {
  private:
     /**

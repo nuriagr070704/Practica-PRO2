@@ -2,14 +2,8 @@
 #include "utils.hh"
 using namespace pro2;
 
-//preguntar cuantas vidas, plataformas, enemigos quiere
 Game::Game(int width, int height, int platforms_num, int lifes_num)
     : mario_({width / 2, 150}, Keys::Left, Keys::Right, Keys::Up),
-      lifes_{
-        Life({375, 100}, false),
-        Life({150, 230}, false),
-        Life({190, 100}, false),
-      },
       platforms_{
           Platform(100, 300, 200, 211),
           Platform(0, 200, 250, 261),
@@ -19,12 +13,13 @@ Game::Game(int width, int height, int platforms_num, int lifes_num)
       pause_(false),
       finished_(false),
       game_finished_(false),
-      is_winning_(true) {
+      final_({300, 50}) {
 
-    for (int i = 0; i < lifes_num; ++i) lifes_.push_back(Life({0,0}, false));
-      //horizontalmente entre 0(left) y el infimito supongo(right)
-      //verticalmente entre 150(top) y 261(bottom)
-      //hacer random
+    for (int i = 0; i < lifes_num; ++i) {
+      int x = 250 + i * 50;
+      int y = (i%2 == 0) ? 80 : (80 + 50);
+      lifes_.push_back(Life({x, y}, false));
+    }
     
     for (int i = 1; i < platforms_num; i++) platforms_.push_back(Platform(250 + i * 200, 400 + i * 200, 150, 161));
 
@@ -47,13 +42,14 @@ void Game::process_keys(pro2::Window& window) {
 void Game::update_objects(pro2::Window& window, Rect visible_window) {
   mario_.update(window, platforms_);
   if (mario_.get_lifes() == 0) {
-    is_winning_ = false;
+    final_.has_won(false);
     game_finished_ = true;
     pause_ = true;
   }
 
   flag_.update(window, mario_);
   if (flag_.is_taken()) {
+    final_.has_won(true);
     game_finished_ = true;
     pause_ = true;
   }
@@ -136,4 +132,9 @@ void Game::paint(pro2::Window& window) {
   paint_hline(window, left, right-1, bottom-1);
   paint_vline(window, left, top, bottom-1);
   paint_vline(window, right-1, top, bottom-1);
+
+  if (game_finished_) {
+    final_.set_pt(window.camera_center());
+    final_.paint(window);
+  }
 }

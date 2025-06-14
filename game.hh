@@ -8,6 +8,7 @@
 #include "mario.hh"
 #include "platform.hh"
 #include "flag.hh"
+#include "final.hh"
 #include "window.hh"
 #include "finder.hh"
 
@@ -28,6 +29,10 @@ class Game {
      * @brief Objeto de bandera
      */
     Flag                    flag_;
+    /**
+     * @brief Objeto que muestra si has ganado o perdido
+     */
+    Final                   final_;
     
     /**
      * @brief Objeto finder para las plataformas
@@ -54,10 +59,6 @@ class Game {
      * @brief `true` si se acaba el juego de una manera convencional
      */
     bool game_finished_;
-    /**
-     * @brief `true` si mario sigue con vidas
-     */
-    bool is_winning_;
     /**
      * @brief `true` si el juego esta en pauss
      */
@@ -123,15 +124,6 @@ class Game {
      */
     bool is_finished() const {
         return finished_;
-    }
-
-    /**
-     * @brief Devuelve si hemos ganado el juego
-     * 
-     * @return `true` si hemos ganado, sino `false`
-     */
-    bool has_won() const {
-        return is_winning_;
     }
 
  private:

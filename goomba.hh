@@ -5,6 +5,9 @@
 #include <vector>
 #include "window.hh"
 
+/**
+ * @brief Esta clase sirve para que Mario tenga dificultad de ganar la partida, pudiendo perder
+ */
 class Goomba {
     private:
         /**

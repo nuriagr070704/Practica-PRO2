@@ -1,11 +1,14 @@
 #ifndef FLAG_HH
-#define FLA_HH
+#define FLAG_HH
 
 #include <iostream>
 #include <vector>
 #include "mario.hh"
 #include "window.hh"
 
+/**
+ * @brief Esta clase sirve para poder ganar el juego
+ */
 class Flag {
  private:
     /**

@@ -5,6 +5,9 @@
 #include "goomba.hh"
 #include "window.hh"
 
+/**
+ * @brief Esta clase sirve para poner plataformas donde Mario se pueda subir
+ */
 class Platform {
  private:
     /**

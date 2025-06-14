@@ -6,6 +6,9 @@
 #include "life.hh"
 
 template <typename T>
+/**
+ * @brief Esta clase sirve para optimizar los objetos que se imprimen por pantalla
+ */
 class Finder {
 private:
     /**

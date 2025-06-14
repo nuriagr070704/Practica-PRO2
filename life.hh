@@ -6,6 +6,9 @@
 #include "mario.hh"
 #include "window.hh"
 
+/**
+ * @brief Esta clase le da oposrtunidades a Mario de ganar la partida dandole vidas
+ */
 class Life {
  private:
     /**
