@@ -16,8 +16,8 @@ Game::Game(int width, int height, int platforms_num, int lifes_num)
       final_({300, 50}) {
 
     for (int i = 0; i < lifes_num; ++i) {
-      int x = 250 + i * 50;
-      int y = (i%2 == 0) ? 80 : (80 + 50);
+      int x = 230 + i * 100;
+      int y = (i%2 == 0) ? 100 : (100 + 30);
       lifes_.push_back(Life({x, y}, false));
     }
     
